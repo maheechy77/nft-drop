@@ -4,7 +4,7 @@ import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThirdwebProvider desiredChainId={ChainId.Rinkeby}>
+    <ThirdwebProvider desiredChainId={ChainId.Mumbai}>
       <Component {...pageProps} />
     </ThirdwebProvider>
   );
