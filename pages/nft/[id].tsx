@@ -21,7 +21,7 @@ const NFTDropPage = ({ collection }: Props) => {
           <div className="bg-gradient-to-br from-yellow-400 to-purple-600 p-2 rounded-xl">
             <img
               className="w-44 rounded-xl object-cover lg:h-96 lg:w-72"
-              src={urlFor(collection.previewImage).url()}
+              src={urlFor(collection?.previewImage).url()}
               alt="apes"
             />
           </div>
@@ -86,7 +86,7 @@ const NFTDropPage = ({ collection }: Props) => {
 export default NFTDropPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const query = `*[_type == "collection" && slug.current == $id[0]]{
+  const query = `*[_type == "collection" && slug.current == $id][0]{
     _id,
     title,
     address,
@@ -95,7 +95,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     mainImage {
       asset
     },
-    perviewImage {
+    previewImage {
       asset
     },
     slug{
@@ -114,6 +114,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const collection = await sanityClient.fetch(query, {
     id: params?.id,
   });
+
+  console.log("c", collection);
 
   if (!collection) {
     return {
